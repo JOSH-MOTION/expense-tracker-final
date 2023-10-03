@@ -16,10 +16,29 @@ import { Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 
 function App() {
+  const [active, setActive] = useState(1)
+
   const global = useGlobalContext();
   console.log(global);
 
+  
+
   const { user } = useAuthContext()
+  
+  const displayData = () => {
+    switch(active){
+      case 1:
+        return <Dashboard />
+      case 2:
+        return <Dashboard />
+      case 3:
+        return <Income />
+      case 4: 
+        return <Expenses />
+      default: 
+        return <Dashboard />
+    }
+  }
 
   const orbMemo = useMemo(() => <Orb />, []);
 
@@ -28,16 +47,13 @@ function App() {
       {orbMemo}
       <MainLayout>
         <Router>
-          <Navigation />
+         <Navigation active={active} setActive={setActive} />
           <main>
           <Routes>
-              <Route path="/" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/income" element={ !user ?<Income /> : <Navigate to="/Icome" />} />
-              <Route path="/expenses" element={<Expenses />} />
               <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
               <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
             </Routes>
+            {displayData()}
           </main>
         </Router>
       </MainLayout>
@@ -63,3 +79,10 @@ const AppStyled = styled.div`
 `;
 
 export default App;
+
+
+
+
+
+
+

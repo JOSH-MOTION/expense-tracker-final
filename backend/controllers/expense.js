@@ -1,6 +1,7 @@
 const ExpenseSchema = require("../models/expenseMode");
 
 exports.addExpense = async (req, res) => {
+
   const { title, amount, category, description, date } = req.body;
 
   const income = ExpenseSchema({
@@ -9,10 +10,12 @@ exports.addExpense = async (req, res) => {
     category,
     description,
     date,
+    
   });
 
   try {
     //validation
+   
     if (!title || !category || !description || !date) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -32,6 +35,7 @@ exports.addExpense = async (req, res) => {
 
 exports.getExpense = async (req, res) => {
   try {
+
     const incomes = await ExpenseSchema.find().sort({ createAt: -1 });
     res.status(200).json(incomes);
   } catch (error) {

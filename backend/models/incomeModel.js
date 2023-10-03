@@ -8,6 +8,7 @@ const IncomeSchema = new mongoose.Schema(
       trim: true,
       maxLength: 50,
     },
+    
     amount: {
       type: Number,
       required: true,
