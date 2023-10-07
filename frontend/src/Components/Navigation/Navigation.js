@@ -29,68 +29,109 @@
 
 // export default Navbar
 
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import styled from 'styled-components'
 import avatar from '../../img/avatar.png'
 import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
 
-import { Link } from 'react-router-dom'
+import { Link,useLocation,useNavigate } from 'react-router-dom'
 import { useLogout } from '../../hooks/useLogout'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import '../../pages/Login.css'
+import LogoutConfirmationModal from '../../LogoutConfirmationModal'
 
 
 
  
 
-function Navigation({active, setActive}) {
-  const { logout } = useLogout()
-  const { user } = useAuthContext()
+function Navigation({ active, setActive }) {
+    const { logout } = useLogout();
+    const { user } = useAuthContext();
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+    const location = useLocation(); // Get the current route location
+    const navigate = useNavigate();
 
-  const handleClick = () => {
-    logout()
+  
+    useEffect(() => {
+      // Close the logout modal whenever the route changes
+      setIsLogoutModalOpen(false);
+    }, [location.pathname]);
+  
+    const handleLogout = () => {
+      setIsLogoutModalOpen(true);
+    };
+  
+    const handleLogoutConfirmed = () => {
+        logout();
+        setIsLogoutModalOpen(false);
+      
+        // Redirect to the login page using React Router v6
+        window.location.href = '/login';
+      };
+      
+  
+    const handleLogoutCanceled = () => {
+      setIsLogoutModalOpen(false);
+    };
+  
+    // Conditionally render the navigation bar based on the route
+    const shouldRenderNavigation = location.pathname !== '/login' && location.pathname !== '/signup';;
+  
+    return shouldRenderNavigation ? (
+      <NavStyled>
+        <div className="user-con">
+          <img src={avatar} alt="" />
+          <div className="text">
+            {/* <h2></h2>
+            <p>Your Money</p> */}
+          </div>
+        </div>
+        <ul className="menu-items">
+          {menuItems.map((item) => (
+            <li
+              key={item.id}
+              onClick={() => setActive(item.id)}
+              className={active === item.id ? 'active' : ''}
+            >
+              <Link to={item.link}>
+                {item.icon}
+                <span>{item.title}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        {!user && (
+          <div>
+            <Link to="/login" className="loginbtn">
+              Login
+            </Link>
+            <Link to="/signup" className="loginbtn">
+              Signup
+            </Link>
+          </div>
+        )}
+        <div className="bottom-nav">
+          <li>
+            {user && (
+              <div>
+                <span className="name">{user.email}</span>
+                <button onClick={handleLogout}>Log out</button>
+              </div>
+            )}
+          </li>
+        </div>
+        {/* Logout Confirmation Modal */}
+        <LogoutConfirmationModal
+          isOpen={isLogoutModalOpen}
+          onClose={handleLogoutCanceled}
+          onConfirm={handleLogoutConfirmed}
+        />
+      </NavStyled>
+    ) : null;
   }
-    return (
-        <NavStyled>
-            <div className="user-con">
-                <img src={avatar} alt="" />
-                <div className="text">
-                    {/* <h2></h2>
-                    <p>Your Money</p> */}
-                </div>
-            </div>
-            <ul className="menu-items">
-                {menuItems.map((item) => {
-                    return <li
-                        key={item.id}
-                        onClick={() => setActive(item.id)}
-                        className={active === item.id ? 'active': ''}
-                    >
-                        {item.icon}
-                        <span>{item.title}</span>
-                    </li>
-                })}
-            </ul>
-            {!user && (
-            <div >
-              <Link to="/login" className='loginbtn'>Login</Link>
-              <Link to="/signup" className='loginbtn'>Signup</Link>
-            </div>
-          )}
-            <div className="bottom-nav">
-                <li>
-                {user && (
-            <div>
-              <span className='name'>{user.email}</span>
-              <button onClick={handleClick}>Log out</button>
-            </div>
-          )}
-                </li>
-            </div>
-        </NavStyled>
-    )
-}
+  
+  
 
 const NavStyled = styled.nav`
     padding: 2rem 1.5rem;

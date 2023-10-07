@@ -1,3 +1,16 @@
+/* auth forms */
+form.signup, form.login {
+    width: 35rem;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 4rem;
+    height: 40rem;
+  }
+
+
+
+
 button {
     border-radius: 20px;
   border: none;
@@ -9,7 +22,12 @@ button {
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+    margin: 2px;
 }
+.btnlg{
+background-color: #ebaf0b;
+}
+
 
 button:active {
     transform: scale(0.95);
@@ -47,10 +65,18 @@ form {
     height: 100%;
     text-align: center;
 }
-form h3 {
+ .login h3 {
     font-weight: bolder;
     font-size: 3em;
     margin: 0;
+    color: #ebaf0b;;
+}
+.signup h3 {
+    font-weight: bolder;
+    font-size: 3em;
+    margin: 0;
+    color: #3F2EFF;
+   
 }
 input {
     background-color: #eee;
@@ -58,13 +84,13 @@ input {
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
-    border-radius: 2rem;
+    border-radius: 3rem;
 }
 
 .name{
     font-weight: bolder;
     position: relative;
-    bottom:34rem;
+    bottom:39rem;
     left: 7rem;
     color: #3F2EFF;
     font-size: larger;
