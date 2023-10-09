@@ -43,6 +43,8 @@ import LogoutConfirmationModal from '../../LogoutConfirmationModal'
 
 
 
+
+
  
 
 function Navigation({ active, setActive }) {
@@ -94,9 +96,9 @@ function Navigation({ active, setActive }) {
               onClick={() => setActive(item.id)}
               className={active === item.id ? 'active' : ''}
             >
-              <Link to={item.link}>
-                {item.icon}
-                <span>{item.title}</span>
+              <Link to={item.link} style={{ textDecoration: "none" }}>
+              <span >{item.icon}</span>
+                <span className="title">{item.title}</span>
               </Link>
             </li>
           ))}
@@ -114,9 +116,11 @@ function Navigation({ active, setActive }) {
         <div className="bottom-nav">
           <li>
             {user && (
-              <div>
+              <div >
                 <span className="name">{user.email}</span>
-                <button onClick={handleLogout}>Log out</button>
+                <li onClick={handleLogout} className="name1">
+                    {signout} Sign Out
+                </li>
               </div>
             )}
           </li>
@@ -145,11 +149,13 @@ const NavStyled = styled.nav`
     flex-direction: column;
     justify-content: space-between;
     gap: 2rem;
+
     .user-con{
         height: 100px;
         display: flex;
         align-items: center;
         gap: 1rem;
+
         img{
             width: 80px;
             height: 80px;
@@ -172,6 +178,7 @@ const NavStyled = styled.nav`
         flex: 1;
         display: flex;
         flex-direction: column;
+    
         li{
             display: grid;
             grid-template-columns: 40px auto;
@@ -183,6 +190,7 @@ const NavStyled = styled.nav`
             color: rgba(34, 34, 96, .6);
             padding-left: 1rem;
             position: relative;
+        
             i{
                 color: rgba(34, 34, 96, 0.6);
                 font-size: 1.4rem;

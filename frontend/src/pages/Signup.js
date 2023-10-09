@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useSignup } from "../hooks/useSignup"
 import { Link } from 'react-router-dom';
+import 'font-awesome/css/font-awesome.min.css'; // Import Font Awesome CSS
 
 const Signup = () => {
   const [email, setEmail] = useState('')
@@ -32,16 +33,21 @@ const Signup = () => {
         onChange={(e) => setPassword(e.target.value)} 
         value={password} 
       />
-      <button className="passbtn"
+       <button
           type="button"
-          onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+          className="eye-button"
+          onClick={() => setShowPassword(!showPassword)}
         >
-          {showPassword ? "Hide" : "Show"} Password
+         <i className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} />
         </button>
          <br />
 
-      <button disabled={isLoading} className="btnsp">Sign up</button>
-      <Link to="/login"><button disabled={isLoading} className="btnlg">Log in</button></Link>
+      <button disabled={isLoading} className="btnsp">
+        Sign up
+        </button>
+      <Link to="/login">
+        <button disabled={isLoading} className="btnlg">Log in</button>
+        </Link>
       {error && <div className="error">{error}</div>}
     </form>
     

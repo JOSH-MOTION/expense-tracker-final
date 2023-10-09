@@ -5,6 +5,18 @@ const createToken = (_id) => {
   return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' })
 }
 
+
+
+
+const clearUserData = async (userId) => {
+  try {
+    // Implement your logic to clear user data
+    // Example: User.deleteMany({ userId });
+  } catch (error) {
+    throw new Error('Error clearing user data: ' + error.message);
+  }
+};
+
 // login a user
 const loginUser = async (req, res) => {
   const {email, password} = req.body
@@ -37,4 +49,4 @@ const signupUser = async (req, res) => {
   }
 }
 
-module.exports = { signupUser, loginUser }
+module.exports = { signupUser, loginUser,clearUserData }

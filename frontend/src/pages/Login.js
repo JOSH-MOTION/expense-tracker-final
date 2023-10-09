@@ -26,18 +26,19 @@ const Login = () => {
         onChange={(e) => setEmail(e.target.value)} 
         value={email} 
       />
-      <label>Password</label>
+       <label>Password</label>
       <input 
-       placeholder="Password"
-       type={showPassword ? "text" : "password"} // Toggle between 'text' and 'password'
+      placeholder="Password"
+      type={showPassword ? "text" : "password"} // Toggle between 'text' and 'password'
         onChange={(e) => setPassword(e.target.value)} 
         value={password} 
       />
-       <button className="passbtn"
+       <button
           type="button"
-          onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+          className="eye-button"
+          onClick={() => setShowPassword(!showPassword)}
         >
-          {showPassword ? "Hide" : "Show"} Password
+         <i className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} />
         </button>
          <br />
 

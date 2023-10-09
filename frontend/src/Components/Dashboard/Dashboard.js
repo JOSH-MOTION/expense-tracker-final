@@ -3,19 +3,30 @@ import styled from 'styled-components'
 import { useGlobalContext } from '../../context/globalContext';
 import History from '../../History/History';
 import { InnerLayout } from '../../styles/Layouts';
-import { dollar,cedi } from '../../utils/Icons';
+import { cedi } from '../../utils/Icons';
 import Chart from '../Chart/Chart';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { Link,useLocation,useNavigate } from 'react-router-dom'
 
 
 
 function Dashboard() {
+  
     const {totalExpenses,incomes, expenses, totalIncome, totalBalance, getIncomes, getExpenses } = useGlobalContext()
 
     useEffect(() => {
         getIncomes()
         getExpenses()
     }, [])
+     
+    const navigate = useNavigate();
+    const { user } = useAuthContext();
 
+    // If user is not authenticated, redirect to login
+  if (!user) {
+    navigate('/login'); // Use navigate to redirect
+    return null; // Render nothing while redirecting
+  }
     return (
         <DashboardStyled>
           
