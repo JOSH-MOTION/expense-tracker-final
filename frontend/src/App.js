@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
+import Transaction from './Components/Transaction/Transaction';
 
 function App() {
   const global = useGlobalContext();
@@ -48,7 +49,7 @@ function App() {
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/Signup" />} />
               <Route path="/dashboard" element={ <Dashboard />} />
-              <Route path="/transactions" element={ <Dashboard />} />
+              <Route path="/transactions" element={ <Transaction />} />
               <Route path="/expenses" element={<Expenses />} />
               <Route path="/incomes" element={<Incomes />} />
             </Routes>
